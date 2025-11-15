@@ -23,28 +23,28 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client, onClick }) => {
     if (isExceptional) {
       return {
         label: 'Excellent',
-        color: 'text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 border-emerald-300 dark:border-emerald-700',
+        color: 'text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 border-emerald-500',
         icon: '⭐'
       };
     }
     if (isHighGrowth) {
       return {
         label: 'Strong Growth',
-        color: 'text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-900/30 border-green-300 dark:border-green-700',
+        color: 'text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 border-blue-500',
         icon: '📈'
       };
     }
     if (isCritical) {
       return {
         label: 'Needs Attention',
-        color: 'text-red-700 dark:text-red-400 bg-red-50 dark:bg-red-900/30 border-red-300 dark:border-red-700',
+        color: 'text-red-700 dark:text-red-400 bg-red-50 dark:bg-red-900/20 border-red-500',
         icon: '⚠️'
       };
     }
     if (isAtRisk) {
       return {
         label: 'Monitor Closely',
-        color: 'text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/30 border-amber-300 dark:border-amber-700',
+        color: 'text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 border-amber-500',
         icon: '⚡'
       };
     }
@@ -52,13 +52,13 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client, onClick }) => {
     if (client.growth_rate >= 5) {
       return {
         label: 'Healthy',
-        color: 'text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 border-blue-300 dark:border-blue-700',
+        color: 'text-slate-700 dark:text-slate-400 bg-slate-50 dark:bg-slate-900/20 border-slate-500',
         icon: '✓'
       };
     }
     return {
       label: 'Stable',
-      color: 'text-slate-700 dark:text-slate-400 bg-slate-50 dark:bg-slate-900/30 border-slate-300 dark:border-slate-700',
+      color: 'text-slate-600 dark:text-slate-500 bg-slate-50 dark:bg-slate-900/20 border-slate-400',
       icon: '−'
     };
   };
@@ -66,24 +66,28 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client, onClick }) => {
   // Dynamic card styling based on performance
   const getCardStyle = () => {
     if (isExceptional) {
-      return 'bg-gradient-to-br from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20 border-2 border-emerald-300 dark:border-emerald-700 shadow-emerald-100 dark:shadow-emerald-900/50';
+      return 'bg-card border border-emerald-500 shadow-lg shadow-emerald-500/10';
     }
     if (isHighGrowth) {
-      return 'bg-white dark:bg-slate-800 border-2 border-emerald-200 dark:border-emerald-800 shadow-sm';
+      return 'bg-card border border-blue-500 shadow-sm shadow-blue-500/10';
     }
     if (isCritical) {
-      return 'bg-gradient-to-br from-red-50 to-rose-50 dark:from-red-900/20 dark:to-rose-900/20 border-2 border-red-300 dark:border-red-700 shadow-red-100 dark:shadow-red-900/50';
+      return 'bg-card border border-red-500 shadow-sm shadow-red-500/10';
     }
     if (isAtRisk) {
-      return 'bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 border-2 border-amber-300 dark:border-amber-700 shadow-amber-100 dark:shadow-amber-900/50';
+      return 'bg-card border border-amber-500 shadow-sm shadow-amber-500/10';
     }
-    return 'bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm';
+    // Healthy/Stable with subtle slate color
+    if (client.growth_rate >= 5) {
+      return 'bg-card border border-slate-400 shadow-sm shadow-slate-400/10';
+    }
+    return 'bg-card border border-slate-300 shadow-sm';
   };
 
   const getPerformanceBadge = () => {
     if (isExceptional) {
       return (
-        <div className="absolute top-2 left-2 flex items-center gap-1 px-2 py-1 text-xs font-bold text-emerald-700 bg-emerald-100 dark:text-emerald-300 dark:bg-emerald-900/40 rounded-full animate-pulse shadow-sm">
+        <div className="absolute top-2 left-2 flex items-center gap-1 px-2 py-1 text-xs font-bold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 rounded-full animate-pulse shadow-sm border border-emerald-500">
           <Sparkles className="w-3 h-3" />
           <span>Star Performer</span>
         </div>
@@ -91,7 +95,7 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client, onClick }) => {
     }
     if (isHighGrowth) {
       return (
-        <div className="absolute top-2 left-2 flex items-center gap-1 px-2 py-1 text-xs font-bold text-green-700 bg-green-100 dark:text-green-300 dark:bg-green-900/40 rounded-full shadow-sm">
+        <div className="absolute top-2 left-2 flex items-center gap-1 px-2 py-1 text-xs font-bold text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 rounded-full shadow-sm border border-blue-500">
           <Zap className="w-3 h-3" />
           <span>High Growth</span>
         </div>
@@ -99,7 +103,7 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client, onClick }) => {
     }
     if (isCritical) {
       return (
-        <div className="absolute top-2 left-2 flex items-center gap-1 px-2 py-1 text-xs font-bold text-red-700 bg-red-100 dark:text-red-300 dark:bg-red-900/40 rounded-full animate-pulse shadow-sm">
+        <div className="absolute top-2 left-2 flex items-center gap-1 px-2 py-1 text-xs font-bold text-red-700 dark:text-red-400 bg-red-50 dark:bg-red-900/20 rounded-full animate-pulse shadow-sm border border-red-500">
           <AlertTriangle className="w-3 h-3" />
           <span>Urgent</span>
         </div>
@@ -121,8 +125,8 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client, onClick }) => {
       {/* Header */}
       <div className={`flex justify-between items-start mb-4 ${getPerformanceBadge() ? 'mt-8' : ''}`}>
         <div className="flex-1 pr-2">
-          <h3 className="text-lg font-bold text-slate-900 dark:text-white">{client.client_name}</h3>
-          <p className="text-sm text-slate-600 dark:text-slate-400">{client.industry}</p>
+          <h3 className="text-lg font-bold text-card-foreground">{client.client_name}</h3>
+          <p className="text-sm text-muted-foreground">{client.industry}</p>
         </div>
         {/* Dynamic Performance Badge */}
         <div className={`px-2.5 py-1 rounded-full flex items-center gap-1.5 border-2 flex-shrink-0 ${getPerformanceStatus().color}`}>
@@ -135,39 +139,20 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client, onClick }) => {
       <div className="space-y-2.5">
         {/* MRR */}
         <div className="flex justify-between items-center">
-          <span className="text-sm text-slate-600 dark:text-slate-400">MRR</span>
-          <span className={`text-base font-bold ${
-            isExceptional ? 'text-emerald-700 dark:text-emerald-400' : 
-            isCritical ? 'text-red-700 dark:text-red-400' : 
-            'text-slate-900 dark:text-white'
-          }`}>{formatCurrency(client.mrr)}</span>
+          <span className="text-sm text-muted-foreground">MRR</span>
+          <span className="text-base font-bold text-foreground">{formatCurrency(client.mrr)}</span>
         </div>
 
         {/* Growth */}
         <div className="flex justify-between items-center">
-          <span className="text-sm text-slate-600 dark:text-slate-400">Growth</span>
+          <span className="text-sm text-muted-foreground">Growth</span>
           <div className="flex items-center gap-1">
             {isPositiveGrowth ? (
-              <TrendingUp className={`w-4 h-4 ${
-                client.growth_rate > 20 ? 'text-emerald-600 dark:text-emerald-400' :
-                client.growth_rate > 10 ? 'text-green-500 dark:text-green-400' :
-                'text-emerald-500 dark:text-emerald-400'
-              }`} />
+              <TrendingUp className="w-4 h-4 text-foreground" />
             ) : (
-              <TrendingDown className={`w-4 h-4 ${
-                client.growth_rate < -10 ? 'text-red-600 dark:text-red-400 animate-pulse' :
-                'text-red-500 dark:text-red-400'
-              }`} />
+              <TrendingDown className="w-4 h-4 text-muted-foreground" />
             )}
-            <span
-              className={`text-sm font-semibold ${
-                client.growth_rate > 20 ? 'text-emerald-700 dark:text-emerald-400' :
-                client.growth_rate > 10 ? 'text-green-600 dark:text-green-400' :
-                isPositiveGrowth ? 'text-emerald-600 dark:text-emerald-400' : 
-                client.growth_rate < -10 ? 'text-red-700 dark:text-red-400' :
-                'text-red-600 dark:text-red-400'
-              }`}
-            >
+            <span className="text-sm font-semibold text-foreground">
               {formatPercentage(client.growth_rate)}
             </span>
           </div>
@@ -175,47 +160,26 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client, onClick }) => {
 
         {/* Pipeline */}
         <div className="flex justify-between items-center">
-          <span className="text-sm text-slate-600 dark:text-slate-400">Pipeline</span>
-          <span className={`text-sm font-medium ${
-            pipelineRatio >= 3 ? 'text-emerald-700 dark:text-emerald-400' :
-            pipelineRatio < 2 ? 'text-red-600 dark:text-red-400' :
-            'text-slate-700 dark:text-slate-300'
-          }`}>{formatCurrency(client.pipeline_value)}</span>
+          <span className="text-sm text-muted-foreground">Pipeline</span>
+          <span className="text-sm font-medium text-foreground">{formatCurrency(client.pipeline_value)}</span>
         </div>
 
         {/* Conversion Rate */}
         <div className="flex justify-between items-center">
-          <span className="text-sm text-slate-600 dark:text-slate-400">Conv. Rate</span>
-          <span className={`text-sm font-medium ${
-            client.conversion_rate >= 7 ? 'text-emerald-700 dark:text-emerald-400' :
-            client.conversion_rate < 3 ? 'text-red-600 dark:text-red-400' :
-            'text-slate-700 dark:text-slate-300'
-          }`}>{client.conversion_rate}%</span>
+          <span className="text-sm text-muted-foreground">Conv. Rate</span>
+          <span className="text-sm font-medium text-foreground">{client.conversion_rate}%</span>
         </div>
       </div>
 
       {/* Pipeline Coverage Indicator */}
-      <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
-        <div className="flex justify-between items-center text-xs text-slate-600 dark:text-slate-400 mb-2">
+      <div className="mt-4 pt-4 border-t border-border">
+        <div className="flex justify-between items-center text-xs text-muted-foreground mb-2">
           <span>Pipeline Coverage</span>
-          <span className={`font-medium ${
-            pipelineRatio >= 3 ? 'text-emerald-600 dark:text-emerald-400' :
-            pipelineRatio >= 2.5 ? 'text-green-600 dark:text-green-400' :
-            pipelineRatio >= 2 ? 'text-amber-600 dark:text-amber-400' :
-            'text-red-600 dark:text-red-400'
-          }`}>{pipelineRatio.toFixed(1)}x</span>
+          <span className="font-medium text-foreground">{pipelineRatio.toFixed(1)}x</span>
         </div>
-        <div className="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+        <div className="h-2 bg-muted rounded-full overflow-hidden">
           <div
-            className={`h-full rounded-full transition-all duration-500 ${
-              pipelineRatio >= 3
-                ? 'bg-gradient-to-r from-emerald-500 to-green-500 dark:from-emerald-400 dark:to-green-400'
-                : pipelineRatio >= 2.5
-                ? 'bg-emerald-500 dark:bg-emerald-400'
-                : pipelineRatio >= 2
-                ? 'bg-amber-500 dark:bg-amber-400'
-                : 'bg-red-500 dark:bg-red-400 animate-pulse'
-            }`}
+            className="h-full rounded-full transition-all duration-500 bg-foreground"
             style={{
               width: `${Math.min((pipelineRatio / 3.5) * 100, 100)}%`,
             }}

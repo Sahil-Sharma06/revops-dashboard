@@ -26,7 +26,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onFileUpload, isLoading 
       {/* Download Template Button */}
       <button
         onClick={handleDownloadTemplate}
-        className="flex items-center gap-2 px-4 py-2 bg-slate-600 hover:bg-slate-700 text-white rounded-lg font-medium shadow-sm transition-all"
+        className="flex items-center gap-2 px-4 py-2 font-medium transition-all border rounded-lg shadow-sm bg-secondary hover:bg-accent text-secondary-foreground border-border"
         title="Download Excel template"
       >
         <Download className="w-4 h-4" />
@@ -45,13 +45,13 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onFileUpload, isLoading 
         />
         <label
           htmlFor="excel-upload"
-          className={`flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium shadow-sm transition-all cursor-pointer ${
+          className={`flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg font-medium shadow-sm transition-all cursor-pointer ${
             isLoading ? 'opacity-50 cursor-not-allowed' : ''
           }`}
         >
           {isLoading ? (
             <>
-              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+              <div className="w-5 h-5 border-2 rounded-full border-primary-foreground border-t-transparent animate-spin"></div>
               <span>Processing...</span>
             </>
           ) : (
@@ -72,23 +72,23 @@ interface UploadInstructionsProps {
 
 export const UploadInstructions: React.FC<UploadInstructionsProps> = ({ onClose }) => {
   return (
-    <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-6">
+    <div className="p-4 mb-6 border rounded-lg bg-muted border-border">
       <div className="flex items-start gap-3">
-        <FileSpreadsheet className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
+        <FileSpreadsheet className="w-5 h-5 text-foreground flex-shrink-0 mt-0.5" />
         <div className="flex-1">
-          <h3 className="font-semibold text-blue-900 dark:text-blue-200 mb-2">
+          <h3 className="mb-2 font-semibold text-foreground">
             Upload Your Client Data
           </h3>
-          <p className="text-sm text-blue-800 dark:text-blue-300 mb-3">
+          <p className="mb-3 text-sm text-muted-foreground">
             Replace the mock data with your actual client metrics by uploading an Excel file with the following columns:
           </p>
-          <div className="bg-white dark:bg-slate-800 rounded p-3 mb-3">
-            <code className="text-xs text-slate-700 dark:text-slate-300">
+          <div className="p-3 mb-3 border rounded bg-background border-border">
+            <code className="text-xs text-foreground">
               client_id, client_name, industry, mrr, pipeline_value, leads_count, 
               conversions_count, conversion_rate, cac, growth_rate, status
             </code>
           </div>
-          <ul className="text-sm text-blue-800 dark:text-blue-300 space-y-1 list-disc list-inside">
+          <ul className="space-y-1 text-sm list-disc list-inside text-muted-foreground">
             <li>Download the template to see the expected format</li>
             <li>Status can be: healthy, at-risk, or critical</li>
             <li>Growth rate should be a percentage (e.g., 15.5 for 15.5%)</li>
@@ -98,7 +98,7 @@ export const UploadInstructions: React.FC<UploadInstructionsProps> = ({ onClose 
         {onClose && (
           <button
             onClick={onClose}
-            className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200"
+            className="text-muted-foreground hover:text-foreground"
           >
             ✕
           </button>

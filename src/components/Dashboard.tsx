@@ -51,13 +51,13 @@ export const Dashboard: React.FC<DashboardProps> = ({ portfolioData, onFileUploa
   }, [portfolioData.clients, sortBy]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+    <div className="min-h-screen bg-background">
       <div className="p-6 mx-auto space-y-6 max-w-7xl">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-slate-900 dark:text-white">RevOps Dashboard</h1>
-            <p className="mt-1 text-slate-600 dark:text-slate-400">Portfolio Performance & AI Insights</p>
+            <h1 className="text-3xl font-bold text-foreground">RevOps Dashboard</h1>
+            <p className="mt-1 text-muted-foreground">Portfolio Performance & AI Insights</p>
           </div>
           
           {/* Actions Section */}
@@ -65,7 +65,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ portfolioData, onFileUploa
             {/* Theme Toggle Button */}
             <button
               onClick={toggleTheme}
-              className="p-2.5 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition-all duration-200 border border-slate-300 dark:border-slate-600"
+              className="p-2.5 text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg transition-all duration-200 border border-border"
               aria-label="Toggle theme"
               title={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
             >
@@ -88,50 +88,50 @@ export const Dashboard: React.FC<DashboardProps> = ({ portfolioData, onFileUploa
 
         {/* Key Metrics */}
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-          <div className="p-5 bg-white border shadow-sm dark:bg-slate-800 rounded-xl border-slate-200 dark:border-slate-700">
+          <div className="p-5 bg-card border shadow-sm rounded-xl border-border">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-600 dark:text-slate-400">Total MRR</p>
-                <p className="mt-1 text-2xl font-bold text-slate-900 dark:text-white">{formatCurrency(totalMRR)}</p>
+                <p className="text-sm text-muted-foreground">Total MRR</p>
+                <p className="mt-1 text-2xl font-bold text-card-foreground">{formatCurrency(totalMRR)}</p>
               </div>
-              <div className="p-3 rounded-lg bg-emerald-100 dark:bg-emerald-900/30">
-                <DollarSign className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+              <div className="p-3 rounded-lg bg-muted">
+                <DollarSign className="w-6 h-6 text-foreground" />
               </div>
             </div>
           </div>
 
-          <div className="p-5 bg-white border shadow-sm dark:bg-slate-800 rounded-xl border-slate-200 dark:border-slate-700">
+          <div className="p-5 bg-card border shadow-sm rounded-xl border-border">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-600 dark:text-slate-400">Total Pipeline</p>
-                <p className="mt-1 text-2xl font-bold text-slate-900 dark:text-white">{formatCurrency(totalPipeline)}</p>
+                <p className="text-sm text-muted-foreground">Total Pipeline</p>
+                <p className="mt-1 text-2xl font-bold text-card-foreground">{formatCurrency(totalPipeline)}</p>
               </div>
-              <div className="p-3 bg-blue-100 rounded-lg dark:bg-blue-900/30">
-                <Target className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+              <div className="p-3 rounded-lg bg-muted">
+                <Target className="w-6 h-6 text-foreground" />
               </div>
             </div>
           </div>
 
-          <div className="p-5 bg-white border shadow-sm dark:bg-slate-800 rounded-xl border-slate-200 dark:border-slate-700">
+          <div className="p-5 bg-card border shadow-sm rounded-xl border-border">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-600 dark:text-slate-400">Avg Conv. Rate</p>
-                <p className="mt-1 text-2xl font-bold text-slate-900 dark:text-white">{formatPercentage(avgConversionRate)}</p>
+                <p className="text-sm text-muted-foreground">Avg Conv. Rate</p>
+                <p className="mt-1 text-2xl font-bold text-card-foreground">{formatPercentage(avgConversionRate)}</p>
               </div>
-              <div className="p-3 bg-purple-100 rounded-lg dark:bg-purple-900/30">
-                <TrendingUp className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+              <div className="p-3 rounded-lg bg-muted">
+                <TrendingUp className="w-6 h-6 text-foreground" />
               </div>
             </div>
           </div>
 
-          <div className="p-5 bg-white border shadow-sm dark:bg-slate-800 rounded-xl border-slate-200 dark:border-slate-700">
+          <div className="p-5 bg-card border shadow-sm rounded-xl border-border">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-600 dark:text-slate-400">Critical Clients</p>
-                <p className="mt-1 text-2xl font-bold text-slate-900 dark:text-white">{criticalClients}</p>
+                <p className="text-sm text-muted-foreground">Critical Clients</p>
+                <p className="mt-1 text-2xl font-bold text-card-foreground">{criticalClients}</p>
               </div>
-              <div className="p-3 bg-red-100 rounded-lg dark:bg-red-900/30">
-                <Users className="w-6 h-6 text-red-600 dark:text-red-400" />
+              <div className="p-3 rounded-lg bg-muted">
+                <Users className="w-6 h-6 text-foreground" />
               </div>
             </div>
           </div>
@@ -140,15 +140,15 @@ export const Dashboard: React.FC<DashboardProps> = ({ portfolioData, onFileUploa
         {/* Client Cards Grid */}
         <div>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white">Client Portfolio</h2>
+            <h2 className="text-xl font-bold text-foreground">Client Portfolio</h2>
             
             {/* Sort Options */}
             <div className="flex items-center gap-2">
-              <span className="text-sm text-slate-600 dark:text-slate-400">Sort by:</span>
+              <span className="text-sm text-muted-foreground">Sort by:</span>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as any)}
-                className="px-3 py-1.5 text-sm bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+                className="px-3 py-1.5 text-sm bg-card border border-border rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-ring cursor-pointer"
               >
                 <option value="performance">Performance Score</option>
                 <option value="mrr">MRR (High to Low)</option>

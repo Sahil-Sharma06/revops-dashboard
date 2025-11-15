@@ -24,39 +24,39 @@ export const InsightsPanel: React.FC<InsightsPanelProps> = ({ insights, loading 
   const getInsightColor = (severity: string) => {
     switch (severity) {
       case 'critical':
-        return 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800 text-red-800 dark:text-red-300';
+        return 'bg-muted border-l-4 border-l-red-500 border-r border-t border-b border-border text-foreground';
       case 'warning':
-        return 'bg-amber-50 dark:bg-amber-900/20 border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-300';
+        return 'bg-muted border-l-4 border-l-amber-500 border-r border-t border-b border-border text-foreground';
       case 'success':
-        return 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300';
+        return 'bg-muted border-l-4 border-l-emerald-500 border-r border-t border-b border-border text-foreground';
       default:
-        return 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-300';
+        return 'bg-muted border-l-4 border-l-blue-500 border-r border-t border-b border-border text-foreground';
     }
   };
 
   const getIconColor = (severity: string) => {
     switch (severity) {
       case 'critical':
-        return 'text-red-600 dark:text-red-400';
+        return 'text-red-500';
       case 'warning':
-        return 'text-amber-600 dark:text-amber-400';
+        return 'text-amber-500';
       case 'success':
-        return 'text-emerald-600 dark:text-emerald-400';
+        return 'text-emerald-500';
       default:
-        return 'text-blue-600 dark:text-blue-400';
+        return 'text-blue-500';
     }
   };
 
   if (loading) {
     return (
-      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
-        <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4">AI Insights & Alerts</h3>
+      <div className="bg-card rounded-xl shadow-sm border border-border p-6">
+        <h3 className="text-lg font-bold text-card-foreground mb-4">AI Insights & Alerts</h3>
         <div className="space-y-4">
           {[1, 2, 3].map((i) => (
             <div key={i} className="animate-pulse">
-              <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded w-3/4 mb-2"></div>
-              <div className="h-3 bg-slate-200 dark:bg-slate-700 rounded w-full mb-1"></div>
-              <div className="h-3 bg-slate-200 dark:bg-slate-700 rounded w-5/6"></div>
+              <div className="h-4 bg-muted rounded w-3/4 mb-2"></div>
+              <div className="h-3 bg-muted rounded w-full mb-1"></div>
+              <div className="h-3 bg-muted rounded w-5/6"></div>
             </div>
           ))}
         </div>
@@ -65,15 +65,15 @@ export const InsightsPanel: React.FC<InsightsPanelProps> = ({ insights, loading 
   }
 
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
-      <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-        <Lightbulb className="w-5 h-5 text-amber-500 dark:text-amber-400" />
+    <div className="bg-card rounded-xl shadow-sm border border-border p-6">
+      <h3 className="text-lg font-bold text-card-foreground mb-4 flex items-center gap-2">
+        <Lightbulb className="w-5 h-5 text-foreground" />
         AI Insights & Alerts
       </h3>
 
       {insights.length === 0 ? (
-        <div className="text-center py-8 text-slate-500 dark:text-slate-400">
-          <Lightbulb className="w-12 h-12 mx-auto mb-2 text-slate-300 dark:text-slate-600" />
+        <div className="text-center py-8 text-muted-foreground">
+          <Lightbulb className="w-12 h-12 mx-auto mb-2 text-muted-foreground opacity-50" />
           <p>No insights available at the moment.</p>
         </div>
       ) : (
@@ -90,7 +90,7 @@ export const InsightsPanel: React.FC<InsightsPanelProps> = ({ insights, loading 
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between mb-1">
                     <h4 className="text-sm font-bold">{insight.title}</h4>
-                    <span className="text-xs font-medium px-2 py-1 rounded bg-white dark:bg-slate-900 bg-opacity-60 dark:bg-opacity-60">
+                    <span className="text-xs font-medium px-2 py-1 rounded bg-background border border-border">
                       {insight.client}
                     </span>
                   </div>

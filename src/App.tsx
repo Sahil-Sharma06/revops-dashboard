@@ -29,15 +29,15 @@ function App() {
     <ThemeProvider>
       <div className="App">
         {uploadError && (
-          <div className="fixed z-50 max-w-md p-4 text-red-700 bg-red-100 border border-red-400 rounded-lg shadow-lg top-4 right-4">
+          <div className="fixed z-50 max-w-md p-4 bg-card border-2 border-foreground rounded-lg shadow-lg top-4 right-4">
             <div className="flex items-start">
               <div className="flex-1">
-                <p className="font-semibold">Upload Error</p>
-                <p className="mt-1 text-sm">{uploadError}</p>
+                <p className="font-semibold text-foreground">Upload Error</p>
+                <p className="mt-1 text-sm text-muted-foreground">{uploadError}</p>
               </div>
               <button
                 onClick={() => setUploadError(null)}
-                className="ml-4 text-red-700 hover:text-red-900"
+                className="ml-4 text-muted-foreground hover:text-foreground"
               >
                 ✕
               </button>

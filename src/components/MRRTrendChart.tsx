@@ -1,7 +1,8 @@
 import React from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Area, AreaChart } from 'recharts';
 import { HistoricalData, ClientMetrics } from '../data/types';
 import { formatCurrency, formatDate } from '../utils/formatters';
+import { TrendingUp } from 'lucide-react';
 
 interface MRRTrendChartProps {
   historicalData: HistoricalData[];
@@ -30,28 +31,16 @@ export const MRRTrendChart: React.FC<MRRTrendChartProps> = ({ historicalData, cl
   // Sort by date
   chartData.sort((a, b) => a.fullDate.getTime() - b.fullDate.getTime());
 
-  // Dynamic color palette - vibrant and distinct colors
+  // Dynamic color palette - muted, professional colors with subtle variety
   const colorPalette = [
-    '#10b981', // Emerald
-    '#3b82f6', // Blue
-    '#f59e0b', // Amber
-    '#ef4444', // Red
-    '#8b5cf6', // Purple
-    '#ec4899', // Pink
-    '#06b6d4', // Cyan
-    '#f97316', // Orange
-    '#84cc16', // Lime
-    '#6366f1', // Indigo
-    '#14b8a6', // Teal
-    '#f43f5e', // Rose
-    '#a855f7', // Violet
-    '#eab308', // Yellow
-    '#22c55e', // Green
-    '#0ea5e9', // Sky
-    '#d946ef', // Fuchsia
-    '#fb923c', // Orange (lighter)
-    '#4ade80', // Green (lighter)
-    '#2dd4bf', // Teal (lighter)
+    '#3b82f6', // Muted blue
+    '#8b5cf6', // Muted purple
+    '#ec4899', // Muted pink
+    '#06b6d4', // Muted cyan
+    '#10b981', // Muted emerald
+    '#f59e0b', // Muted amber
+    '#ef4444', // Muted red
+    '#6366f1', // Muted indigo
   ];
 
   // Generate color mapping for clients dynamically
@@ -68,16 +57,25 @@ export const MRRTrendChart: React.FC<MRRTrendChartProps> = ({ historicalData, cl
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-white dark:bg-slate-800 p-4 rounded-lg shadow-lg border border-slate-200 dark:border-slate-700">
-          <p className="font-semibold text-slate-900 dark:text-white mb-2">{label}</p>
-          {payload.map((entry: any) => {
-            const client = clients.find((c) => c.client_id === entry.dataKey);
-            return (
-              <p key={entry.dataKey} className="text-sm" style={{ color: entry.color }}>
-                {client?.client_name}: {formatCurrency(entry.value)}
-              </p>
-            );
-          })}
+        <div className="bg-card p-4 rounded-xl shadow-2xl border-2 border-foreground backdrop-blur-sm">
+          <p className="font-bold text-card-foreground mb-3 text-sm uppercase tracking-wide">{label}</p>
+          <div className="space-y-2">
+            {payload.map((entry: any) => {
+              const client = clients.find((c) => c.client_id === entry.dataKey);
+              return (
+                <div key={entry.dataKey} className="flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-2">
+                    <div 
+                      className="w-3 h-3 rounded-full" 
+                      style={{ backgroundColor: entry.color }}
+                    />
+                    <span className="text-sm font-medium text-foreground">{client?.client_name}</span>
+                  </div>
+                  <span className="text-sm font-bold text-foreground">{formatCurrency(entry.value)}</span>
+                </div>
+              );
+            })}
+          </div>
         </div>
       );
     }
@@ -85,44 +83,75 @@ export const MRRTrendChart: React.FC<MRRTrendChartProps> = ({ historicalData, cl
   };
 
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
-      <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4">MRR Trend (12 Weeks)</h3>
-      <ResponsiveContainer width="100%" height={300}>
-        <LineChart data={chartData}>
-          <CartesianGrid strokeDasharray="3 3" stroke="currentColor" className="text-slate-200 dark:text-slate-700" />
+    <div className="bg-card rounded-xl shadow-sm border border-border p-6 hover:shadow-md transition-shadow duration-300">
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-3">
+          <div className="p-2 bg-foreground rounded-lg">
+            <TrendingUp className="w-5 h-5 text-background" />
+          </div>
+          <div>
+            <h3 className="text-lg font-bold text-card-foreground">MRR Trend</h3>
+            <p className="text-xs text-muted-foreground">12-Week Performance Overview</p>
+          </div>
+        </div>
+      </div>
+      
+      <ResponsiveContainer width="100%" height={350}>
+        <LineChart data={chartData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+          <defs>
+            {clients.map((client, index) => (
+              <linearGradient key={`gradient-${client.client_id}`} id={`gradient-${client.client_id}`} x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor={clientColorMap[client.client_id]} stopOpacity={0.2}/>
+                <stop offset="95%" stopColor={clientColorMap[client.client_id]} stopOpacity={0.05}/>
+              </linearGradient>
+            ))}
+          </defs>
+          <CartesianGrid 
+            strokeDasharray="3 3" 
+            stroke="currentColor" 
+            className="text-border opacity-30" 
+            vertical={false}
+          />
           <XAxis
             dataKey="date"
             stroke="currentColor"
-            className="text-slate-600 dark:text-slate-400"
-            style={{ fontSize: '12px' }}
+            className="text-muted-foreground"
+            style={{ fontSize: '11px', fontWeight: 500 }}
             angle={-45}
             textAnchor="end"
-            height={60}
+            height={70}
+            tickLine={false}
+            axisLine={{ strokeWidth: 2 }}
           />
           <YAxis
             stroke="currentColor"
-            className="text-slate-600 dark:text-slate-400"
-            style={{ fontSize: '12px' }}
+            className="text-muted-foreground"
+            style={{ fontSize: '11px', fontWeight: 500 }}
             tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`}
+            tickLine={false}
+            axisLine={{ strokeWidth: 2 }}
           />
-          <Tooltip content={<CustomTooltip />} />
+          <Tooltip content={<CustomTooltip />} cursor={{ stroke: '#6b7280', strokeWidth: 1, strokeDasharray: '5 5' }} />
           <Legend
-            wrapperStyle={{ paddingTop: '20px' }}
+            wrapperStyle={{ paddingTop: '25px', fontSize: '12px' }}
+            iconType="circle"
             formatter={(value) => {
               const client = clients.find((c) => c.client_id === value);
               return client?.client_name || value;
             }}
           />
           {clients.map((client, index) => (
-            <Line
-              key={client.client_id}
-              type="monotone"
-              dataKey={client.client_id}
-              stroke={clientColorMap[client.client_id]}
-              strokeWidth={2}
-              dot={{ r: 3 }}
-              activeDot={{ r: 5 }}
-            />
+            <React.Fragment key={client.client_id}>
+              <Line
+                type="monotone"
+                dataKey={client.client_id}
+                stroke={clientColorMap[client.client_id]}
+                strokeWidth={2.5}
+                dot={{ r: 4, strokeWidth: 2, fill: '#fff' }}
+                activeDot={{ r: 6, strokeWidth: 3 }}
+                fill={`url(#gradient-${client.client_id})`}
+              />
+            </React.Fragment>
           ))}
         </LineChart>
       </ResponsiveContainer>
