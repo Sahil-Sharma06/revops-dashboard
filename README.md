@@ -48,6 +48,9 @@ The dashboard tracks 8 diverse mock SaaS companies across different scenarios:
 - ✅ Client cards with key performance indicators
 - ✅ AI-powered insights using Gemini API
 - ✅ Rule-based anomaly detection
+- ✅ **Excel Upload Feature** - Upload your own client data from Excel files
+- ✅ **Dynamic Data Updates** - Dashboard and AI insights update automatically
+- ✅ **Template Download** - Get pre-formatted Excel template
 - ✅ One-click executive report generation
 - ✅ System architecture & automation metrics (39 hrs/week saved)
 - ✅ Scalability indicators (50+ client capacity)
@@ -129,21 +132,50 @@ revops-dashboard/
 │   ├── components/
 │   │   ├── ClientCard.tsx          # Individual client metric card
 │   │   ├── Dashboard.tsx           # Main dashboard layout
+│   │   ├── FileUpload.tsx          # Excel upload component (NEW)
 │   │   ├── InsightsPanel.tsx       # AI insights display
 │   │   └── MRRTrendChart.tsx       # Revenue trend visualization
 │   ├── data/
 │   │   ├── types.ts                # TypeScript interfaces
 │   │   └── mockData.ts             # Mock data generator
 │   ├── utils/
+│   │   ├── excelParser.ts          # Excel file parser (NEW)
 │   │   ├── formatters.ts           # Currency/date formatting
 │   │   └── insightGenerator.ts    # AI & rule-based insights
 │   ├── App.tsx                     # Root component
 │   └── index.css                   # Global styles
 ├── public/
+├── EXCEL_UPLOAD_GUIDE.md          # Detailed upload documentation (NEW)
 ├── package.json
 ├── tailwind.config.js
 └── README.md
 ```
+
+## 📊 Excel Upload Feature
+
+Upload your own client data to replace mock data and get personalized insights!
+
+### Quick Start
+1. Click **"Template"** button to download the Excel template
+2. Fill in your client data (required: `client_id`, `client_name`)
+3. Click **"Upload Excel"** and select your file
+4. Dashboard automatically updates with your data
+
+### Excel Format
+Your Excel file should include these columns:
+- `client_id` (required) - Unique identifier
+- `client_name` (required) - Company name
+- `industry`, `mrr`, `pipeline_value`, `leads_count`, `conversions_count`
+- `conversion_rate`, `cac`, `growth_rate`, `status` (healthy/at-risk/critical)
+
+**See [EXCEL_UPLOAD_GUIDE.md](./EXCEL_UPLOAD_GUIDE.md) for complete documentation.**
+
+### Features
+- ✅ Automatic data validation
+- ✅ Historical trend generation based on growth rates
+- ✅ AI insights updated with your data
+- ✅ Client-side processing (data stays private)
+- ✅ Error handling with helpful messages
 
 ## 📊 Data Model
 

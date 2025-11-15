@@ -92,9 +92,8 @@ export function generateRuleBasedInsights(clients: ClientMetrics[]): Insight[] {
 
 // Generate AI-powered insights using Google Gemini
 export async function generateAIInsights(clients: ClientMetrics[]): Promise<Insight[]> {
-  // FIX 1: Access environment variable correctly for browser
-  // Cast import.meta to any to avoid TypeScript error when using Vite's import.meta.env
-  const apiKey = (import.meta as any)?.env?.VITE_GEMINI_API_KEY || process.env.REACT_APP_GEMINI_API_KEY;
+  // Access environment variable for Create React App
+  const apiKey = process.env.REACT_APP_GEMINI_API_KEY;
 
   console.log('🤖 [AI INSIGHTS] Starting AI insight generation...');
   console.log('🔑 [AI INSIGHTS] API Key status:', apiKey ? 
@@ -102,8 +101,8 @@ export async function generateAIInsights(clients: ClientMetrics[]): Promise<Insi
     '❌ Missing');
 
   if (!apiKey || apiKey === 'your_gemini_api_key_here') {
-    console.warn('⚠️  [AI INSIGHTS] Gemini API key not configured. Using rule-based insights only.');
-    console.warn('💡 [AI INSIGHTS] To enable AI insights: Create .env file with REACT_APP_GEMINI_API_KEY=your_key (CRA) or VITE_GEMINI_API_KEY=your_key (Vite)');
+    console.warn('⚠️  [AI INSIGHTS] Gemini API key not configured. Using rule-based insights only.');
+    console.warn('💡 [AI INSIGHTS] To enable AI insights: Create .env file with REACT_APP_GEMINI_API_KEY=your_key');
     return [];
   }
 

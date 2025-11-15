@@ -30,14 +30,40 @@ export const MRRTrendChart: React.FC<MRRTrendChartProps> = ({ historicalData, cl
   // Sort by date
   chartData.sort((a, b) => a.fullDate.getTime() - b.fullDate.getTime());
 
-  // Define colors for each client
-  const colors = {
-    client_a: '#10b981', // Green
-    client_b: '#f59e0b', // Orange
-    client_c: '#ef4444', // Red
-    client_d: '#3b82f6', // Blue
-    client_e: '#8b5cf6', // Purple
+  // Dynamic color palette - vibrant and distinct colors
+  const colorPalette = [
+    '#10b981', // Emerald
+    '#3b82f6', // Blue
+    '#f59e0b', // Amber
+    '#ef4444', // Red
+    '#8b5cf6', // Purple
+    '#ec4899', // Pink
+    '#06b6d4', // Cyan
+    '#f97316', // Orange
+    '#84cc16', // Lime
+    '#6366f1', // Indigo
+    '#14b8a6', // Teal
+    '#f43f5e', // Rose
+    '#a855f7', // Violet
+    '#eab308', // Yellow
+    '#22c55e', // Green
+    '#0ea5e9', // Sky
+    '#d946ef', // Fuchsia
+    '#fb923c', // Orange (lighter)
+    '#4ade80', // Green (lighter)
+    '#2dd4bf', // Teal (lighter)
+  ];
+
+  // Generate color mapping for clients dynamically
+  const getClientColor = (index: number) => {
+    return colorPalette[index % colorPalette.length];
   };
+
+  // Create a color map for consistent colors per client
+  const clientColorMap = clients.reduce((map, client, index) => {
+    map[client.client_id] = getClientColor(index);
+    return map;
+  }, {} as Record<string, string>);
 
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
@@ -87,12 +113,12 @@ export const MRRTrendChart: React.FC<MRRTrendChartProps> = ({ historicalData, cl
               return client?.client_name || value;
             }}
           />
-          {clients.map((client) => (
+          {clients.map((client, index) => (
             <Line
               key={client.client_id}
               type="monotone"
               dataKey={client.client_id}
-              stroke={colors[client.client_id as keyof typeof colors]}
+              stroke={clientColorMap[client.client_id]}
               strokeWidth={2}
               dot={{ r: 3 }}
               activeDot={{ r: 5 }}
